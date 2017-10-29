@@ -15,13 +15,7 @@ ccflags-y	+= -Dlinux -DDWC_HS_ELECT_TST
 ccflags-y   += -I$(DWCPATH)
 ccflags-y   += -DDWC_LINUX
 ccflags-y	+= -DLM_INTERFACE
-ifneq ($(TARGET_BUILD_VARIANT),user)
 EXTRA_CFLAGS += -DHISI_PLUGUSB_TEST
-else
-ifeq ($(TARGET_VERSION_MODE),factory)
-EXTRA_CFLAGS += -DHISI_PLUGUSB_TEST
-endif
-endif
 
 obj-y	:= dwc_otg.o
 obj-y   += dwc_common_port/

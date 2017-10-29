@@ -4,12 +4,7 @@ CFLAGS_trace.o				:= -I$(src)
 ccflags-$(CONFIG_USB_DWC3_DEBUG)	:= -DDEBUG
 ccflags-$(CONFIG_USB_DWC3_HISI)		+= -DDWC3_ENABLE_CSP
 ccflags-$(CONFIG_USB_DWC3_OTG)		+= -DDWC3_OTG_FORCE_MODE
-ifneq ($(TARGET_BUILD_VARIANT),user)
 EXTRA_CFLAGS += -DHISI_PLUGUSB_TEST
-else
-ifeq ($(TARGET_VERSION_MODE),factory)
-EXTRA_CFLAGS += -DHISI_PLUGUSB_TEST
-endif
 endif
 
 obj-$(CONFIG_USB_DWC3)			+= dwc3.o
