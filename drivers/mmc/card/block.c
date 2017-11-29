@@ -90,12 +90,12 @@ MODULE_ALIAS("mmc:block");
   #endif
   #define MODULE_PARAM_PREFIX "mmcblk."
 #else
-  /*
+
   #ifdef MODULE_PARAM_PREFIX
   #undef MODULE_PARAM_PREFIX
   #endif
   #define MODULE_PARAM_PREFIX "mmcblk."
-  */
+
 #endif
 
 #define INAND_CMD38_ARG_EXT_CSD  113
