@@ -153,6 +153,7 @@ static int __init init_zero_pfn(void)
 core_initcall(init_zero_pfn);
 
 
+
 #if defined(SPLIT_RSS_COUNTING)
 
 void sync_mm_rss(struct mm_struct *mm)
@@ -1973,12 +1974,11 @@ static inline void cow_user_page(struct page *dst, struct page *src, unsigned lo
 			clear_page(kaddr);
 		kunmap_atomic(kaddr);
 		flush_dcache_page(dst);
-	} else
 	} else {
- 		copy_user_highpage(dst, src, va, vma);
+		copy_user_highpage(dst, src, va, vma);
 		uksm_cow_page(vma, src);
 	}
- }
+}
 
 /*
  * Notify the address space that the page is about to become writable so that
@@ -2134,9 +2134,11 @@ static int wp_page_copy(struct mm_struct *mm, struct vm_area_struct *vma,
 				inc_mm_counter_fast(mm, MM_ANONPAGES);
 			}
 			uksm_bugon_zeropage(orig_pte);
- 		} else {
+		} else {
 			uksm_unmap_zero_page(orig_pte);
- 			inc_mm_counter_fast(mm, MM_ANONPAGES);
+			inc_mm_counter_fast(mm, MM_ANONPAGES);
+		}
+		flush_cache_page(vma, address, pte_pfn(orig_pte));
 		entry = mk_pte(new_page, vma->vm_page_prot);
 		entry = maybe_mkwrite(pte_mkdirty(entry), vma);
 		/*
@@ -3898,3 +3900,4 @@ void ptlock_free(struct page *page)
 #ifdef CONFIG_HW_BOOST_SIGKILL_FREE
 #include "boost_sigkill_free.c"
 #endif
+
